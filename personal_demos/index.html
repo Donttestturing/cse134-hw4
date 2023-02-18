@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" >
+        <title> Personal Demos </title>
+        <link rel="icon" href="/content/images/logoSmall.svg" alt="Brendan Devlin's personal logo, designed and created by him."> <!-- Adding favicon which my own logo-->
+        <style>
+            :root {
+                --color-primary: #ddcbee;
+                --color-secondary: #d1b8dd;
+                --color-ternary: #ede2f1;
+                --color-trim: #e0cc6f;
+                --color-dark-trim: #a09048;
+                --color-text:#493652;
+
+                --border-radius: 2px solid;
+                --margin-size: 2vh;
+                --padding-size: 2%;
+
+            }
+            @font-face {
+                font-family: "myCustomFont";
+                src: url("LibreFranklin-VariableFont_wght.ttf");
+            }
+            header {
+                display: flex;
+                padding: 1.5rem;
+               
+                background-color: var(--color-secondary);
+                border-style: ridge;
+            }
+            * {
+                font-family: myCustomFont, Segoe UI, Tahoma, Geneva, Verdana, sans-serif;   
+                font-weight: 600;
+                border-radius: var(--border-radius);
+            }
+            section {
+                margin-bottom: var(--margin-size);
+
+                padding: var(--padding-size);
+                border-color: var(--color-ternary);
+                display: flex;
+                flex-direction: column;
+                background-color: var(--color-primary);
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            html{
+                background-color: var(--color-ternary);
+            }
+            #iconFig{
+                width: 15vw;
+            }
+            #site-links {
+                display: flex;
+                justify-content: space-around; 
+                gap: 8vw;
+                height: 2vh;
+
+            }
+            header h1 {
+                margin-right: 8vw;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1> Personal Demos </h1>
+            <nav id="site-links">
+                <a href="/experiments/index.html"> Experiments </a>
+                <a href="/index.html"> Homepage </a>
+                <a href="https://www.linkedin.com/in/brendan-devlin-7846a7252/"> My LinkedIn </a>
+                <a href="https://github.com/Donttestturing"> My Github </a>
+                <a href="https://ucsd.edu/"> UCSD's Website </a>
+            </nav>
+            <hr>
+        </header>
+        <main>
+            <section>
+                <h3> Code snippet of inverting Burrows-Wheeler Transform </h3>
+                <p> This is my solution for a totally optional and ungraded challenge given in one of my CS classes. </p>
+                <pre> <code> 
+                    //given a BWTransform, invert to give orig string
+                    string invertBWT(const string & s){
+                        string strToReturn = "";
+                        vector&lt;int&gt; vecL2F = last2FirstHelper(s);
+                        vector&lt;BWTChar&gt; vecToSort, vec;
+                        int l2f;
+                        string str = s.substr(0);
+                        
+                        for(int i = 0; i &lt; s.size(); i++){	//add all letters in BWT given to each vector, one will get sorted and be the vec for the first column
+                            BWTChar bwtCh(str[i]);
+                            vecToSort.push_back(bwtCh);
+                            vec.push_back(bwtCh);
+                        }
+                        sort(vecToSort.begin(), vecToSort.end(), BWTCharCompare);
+                    
+                    //beginning inversion
+                        for(int i = 0; i &lt; vecL2F.size()-1; i++){		
+                            if(i == 0){
+                                l2f = vecL2F[i];
+                                strToReturn.insert(strToReturn.begin(), vecToSort[i].getChar());
+                                strToReturn.insert(strToReturn.begin(), vec[i].getChar());
+                            }else {
+                                l2f = vecL2F[l2f];
+                                strToReturn.insert(strToReturn.begin(), vecToSort[l2f].getChar());
+                            }
+                        }
+                        return strToReturn;
+                    } 
+                </code> </pre>
+                <p> Note that we first <code> push_back()</code> the chars in the string onto a vector, and then we need to sort it. This is a <em> vital step. </em> </p>
+
+            </section>
+
+            <!-- More to add here, if wanted -->
+            <section>
+                <h3> More to Add </h3>
+
+
+            </section>
+
+
+        </main>
+
+
+
+    </body>
+
+
+</html>
