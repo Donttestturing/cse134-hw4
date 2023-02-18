@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" >
+        <title> Simple Dialogs </title>
+        <link rel="icon" href="/content/images/logoSmall.svg" alt="Brendan Devlin's personal logo, designed and created by him."> 
+        <style>
+         
+        </style>
+
+    </head>
+    <body>
+        <header>
+            <h1> Simple Dialogs </h1>
+        </header>
+        <main>
+          <button id="first">
+            Alert
+          </button>
+  
+          <button >
+            Prompt
+          </button >
+          <button>
+            Safer Prompt
+          </button>
+          <button>
+            Confirm
+          </button>
+          <br>
+          <output>
+            Output: 
+          </output>
+
+        </main>
+
+
+
+    </body>
+
+    <script>
+        let buttons = document.getElementsByTagName('button');
+
+        buttons[0].addEventListener('click', () => {alert('Built-in Alert')} );
+
+        let outputs = document.getElementsByTagName('output');
+
+        let userValue = null;
+
+        buttons[1].addEventListener('click', () => {
+                userValue = prompt('Please enter a value')} 
+            
+            );
+
+
+        buttons[2].addEventListener('click', () => {prompt('Please enter a value')} );
+
+
+
+        buttons[3].addEventListener('click', () => {
+            if(userValue === null){
+                outputs[0].innerHTML = 'Output: User didn\'t enter anything';
+                confirm('User didn\'t enter anything');
+            } else {
+                outputs[0].innerHTML = `Output: The value returned by the confirm method is : ${userValue}`;
+                confirm(`The value returned by the confirm method is : ${userValue}`);
+            }
+            
+           
+
+
+        } );
+
+
+    </script>
+
+</html>
