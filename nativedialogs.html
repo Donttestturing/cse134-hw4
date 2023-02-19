@@ -20,21 +20,24 @@
           <button id="first">
             Alert
           </button>
-  
+          <button>
+            Confirm
+          </button>
           <button >
             Prompt
           </button >
           <button>
             Safer Prompt
           </button>
-          <button>
-            Confirm
-          </button>
+  
           <br>
           <output>
-            Output: 
+           
           </output>
-
+          <br>
+          <output>
+          
+          </output>
         </main>
 
 
@@ -51,37 +54,37 @@
 
         let userValue = null;
 
-        buttons[1].addEventListener('click', () => {        //Regular Prompt
-            userValue = prompt('Please enter a value')
-        });
-
-        buttons[2].addEventListener('click', () => {        //Safer Prompt
-            userValue = prompt('Please enter a value');
-            userValue = DOMPurify.sanitize(userValue);
-        });
-
-        function taggedTemplateStr (string){
-            string = string.replaceAll('<', ''); 
-            string = string.replaceAll('>', ''); 
-            string = string.replaceAll('/', ''); 
-            return `The value returned by the confirm method is : ${string}`;
-        }
-
-        console.log(taggedTemplateStr('<P>'));
-
-        buttons[3].addEventListener('click', () => {
-            if(userValue === null){
-                outputs[0].innerHTML = 'Output: User didn\'t enter anything';
-                confirm('User didn\'t enter anything');
-            } else {
-                outputs[0].innerHTML = 'Output: ' + taggedTemplateStr(userValue);
-                confirm(taggedTemplateStr(userValue));
-
+        
+        function taggedTemplateStr (str){       
+            if(str === null || str.length < 1){
+                return `Prompt Result : User did not enter anything`;
             }
-            userValue = null;
-           
+            
+            return `Prompt Result : ${str}`;
+        }
+        
+        buttons[1].addEventListener('click', () => {
+            let confirmation = confirm('Do you confirm this?');
+
+            let strToReturn = `Confirm Result: ${confirmation}`;
+            outputs[0].innerHTML = strToReturn;
 
         } );
+
+        buttons[2].addEventListener('click', () => {        //Regular Prompt
+            userValue = prompt('Please enter your name!')
+            outputs[1].innerHTML = taggedTemplateStr(userValue);
+
+        });
+
+        buttons[3].addEventListener('click', () => {        //Safer Prompt
+            userValue = prompt('Please enter your name!');
+            userValue = DOMPurify.sanitize(userValue);
+            outputs[1].innerHTML = taggedTemplateStr(userValue);
+        });
+
+                                                                                        //<b onmouseover="alert('Got \'Em')"> Roll them </b>
+
 
 
     </script>
