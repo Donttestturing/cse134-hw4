@@ -135,9 +135,9 @@
                 const postDates = JSON.parse(localStorage.getItem('Post Dates'));
                 const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
     
-                postTitles[index] = postTitleEle.value;
-                postDates[index] = dateEle.value;
-                postSummaries[index] = summaryEle.value;
+                postTitles[index] = DOMPurify.sanitize(postTitleEle.value);
+                postDates[index] = DOMPurify.sanitize(dateEle.value);
+                postSummaries[index] = DOMPurify.sanitize(summaryEle.value);
 
                 localStorage.setItem('Post Titles', JSON.stringify(postTitles));
                 localStorage.setItem('Post Dates', JSON.stringify(postDates));
@@ -194,9 +194,10 @@
         const postDates = JSON.parse(localStorage.getItem('Post Dates'));
         const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
-        postTitles.push(postTitleEle.value);
-        postDates.push(dateEle.value);
-        postSummaries.push(summaryEle.value);
+
+        postTitles.push(DOMPurify.sanitize(postTitleEle.value));
+        postDates.push(DOMPurify.sanitize(dateEle.value));
+        postSummaries.push(DOMPurify.sanitize(summaryEle.value));
 
         localStorage.setItem('Post Titles', JSON.stringify(postTitles));
         localStorage.setItem('Post Dates', JSON.stringify(postDates));
