@@ -46,18 +46,46 @@
             let postDates = JSON.parse(localStorage.getItem('Post Dates'));
             let postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
-            postTitles.splice(index, 1);
-            postDates.splice(index, 1);
-            postSummaries.splice(index, 1);
 
-            localStorage.setItem('Post Titles', JSON.stringify(postTitles));
-            localStorage.setItem('Post Dates', JSON.stringify(postDates));
-            localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
+            let userDialogField = document.getElementById('userDialogField');
+            userDialogField.open = true;
+            userDialogField.innerHTML = ` <p> <b> Do you want to delete this entry? </b> </p> <br> 
+                                        <button id="delConfirmButton">
+                                            Delete
+                                        </button>
+                                        <button id="cancelButton">
+                                            Cancel
+                                        </button>`;
 
-            blogPosts[0].innerHTML = '';
-            loadFromLocalStorage();
-            window.location.reload();
+            
+            cancelButton.addEventListener('click', ()=>{
+                userDialogField.open = false;
+                userDialogField.innerHTML = '';
 
+                blogPosts[0].innerHTML = '';
+                loadFromLocalStorage();
+                window.location.reload();
+            });
+
+            let delConfirmButton = document.getElementById('delConfirmButton');
+            delConfirmButton.addEventListener('click', ()=>{
+                postTitles.splice(index, 1);
+                postDates.splice(index, 1);
+                postSummaries.splice(index, 1);
+
+                localStorage.setItem('Post Titles', JSON.stringify(postTitles));
+                localStorage.setItem('Post Dates', JSON.stringify(postDates));
+                localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
+
+                blogPosts[0].innerHTML = '';
+                loadFromLocalStorage();
+                window.location.reload();
+            });
+
+
+            
+
+          
         });
         
     } 
@@ -72,13 +100,13 @@
 
             let userDialogField = document.getElementById('userDialogField');
             userDialogField.open = true;
-            userDialogField.innerHTML = ` <label for="postTitle">Edit Title</label>
+            userDialogField.innerHTML = ` <label for="postTitle">Edit Title:</label>
                         <input type="text" id="postTitle" name="postTitle" value=${postTitles[index]} required>
         
-                        <label for="Date">Edit Date</label>
+                        <label for="Date">Edit Date:</label>
                         <input type="date" id="Date" name="Date" value=${postDates[index]} required>
                         <br>
-                        <label for="summary">Edit Summary</label> <br>
+                        <label for="summary">Edit Summary:</label> <br>
                         <textarea id="summary" name="summary" innerText=${postSummaries[index]} required> </textarea>
                         <br>
                         <button id="saveButton">
@@ -134,13 +162,13 @@
   addButtons[0].addEventListener('click', () => {
     let userDialogField = document.getElementById('userDialogField');
     userDialogField.open = true;
-    userDialogField.innerHTML = ` <label for="postTitle">Post Title</label>
+    userDialogField.innerHTML = ` <label for="postTitle">Post Title:</label>
                 <input type="text" id="postTitle" name="postTitle" required>
 
-                <label for="Date">Date</label>
+                <label for="Date">Date:</label>
                 <input type="date" id="Date" name="Date" required>
-
-                <label for="summary">Summary</label> <br>
+                <br>
+                <label for="summary">Summary:</label> 
                 <textarea id="summary" name="summary" required> </textarea>
                 <br>
                 <button id="saveButton">
