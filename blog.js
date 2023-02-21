@@ -29,7 +29,7 @@
         let blogPosts = document.getElementsByTagName('output');
 
         for (let index = 0; index < postTitles.length; index++) {
-            blogPosts[0].innerHTML += '<li>' + postTitles[index] +  ': ' + postDate[index] + ' — ' + postSummary[index]  + "<button class='editButton'> Edit </button> " + "<button class='deleteButton'> Delete </button>"  +  ' </li>';
+            blogPosts[0].innerHTML += '<li>' + postTitles[index] +  ': ' + postDate[index] + ' — ' + postSummary[index] + " |"  + "<button class='editButton'> Edit </button> " + "<button class='deleteButton'> Delete </button>"  +  ' </li>';
 
         }
         
@@ -37,7 +37,7 @@
     }  
 
     let blogPosts = document.getElementsByTagName('output');
-    let deleteButtons = blogPosts[0].getElementsByClassName('deleteButton')
+    let deleteButtons = blogPosts[0].getElementsByClassName('deleteButton');
 //items' delete buttons
     for (let index = 0; index < deleteButtons.length; index++) {
 
@@ -90,7 +90,7 @@
         
     } 
 //items' edit buttons
-    let editButtons = blogPosts[0].getElementsByClassName('editButton')
+    let editButtons = blogPosts[0].getElementsByClassName('editButton');
     for (let index = 0; index < editButtons.length; index++) {
         editButtons[index].addEventListener('click', () => {
             let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
