@@ -38,7 +38,7 @@
 
     let blogPosts = document.getElementsByTagName('output');
     let deleteButtons = blogPosts[0].getElementsByClassName('deleteButton')
-
+//items' delete buttons
     for (let index = 0; index < deleteButtons.length; index++) {
 
         deleteButtons[index].addEventListener('click', () =>{
@@ -89,7 +89,7 @@
         });
         
     } 
-
+//items' edit buttons
     let editButtons = blogPosts[0].getElementsByClassName('editButton')
     for (let index = 0; index < editButtons.length; index++) {
         editButtons[index].addEventListener('click', () => {
@@ -156,7 +156,7 @@
         
     } 
 
-
+//app's add button
   let addButtons = document.getElementsByClassName('addButton');
 
   addButtons[0].addEventListener('click', () => {
