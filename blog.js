@@ -63,32 +63,70 @@
     } 
 
     let editButtons = blogPosts[0].getElementsByClassName('editButton')
-
     for (let index = 0; index < editButtons.length; index++) {
-
         editButtons[index].addEventListener('click', () => {
-            console.log('ya');
-
             let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
             let postDates = JSON.parse(localStorage.getItem('Post Dates'));
             let postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
-            postTitles.splice(index, 1);
-            postDates.splice(index, 1);
-            postSummaries.splice(index, 1);
 
-            localStorage.setItem('Post Titles', JSON.stringify(postTitles));
-            localStorage.setItem('Post Dates', JSON.stringify(postDates));
-            localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
+            let userDialogField = document.getElementById('userDialogField');
+            userDialogField.open = true;
+            userDialogField.innerHTML = ` <label for="postTitle">Edit Title</label>
+                        <input type="text" id="postTitle" name="postTitle" value=${postTitles[index]} required>
+        
+                        <label for="Date">Edit Date</label>
+                        <input type="date" id="Date" name="Date" value=${postDates[index]} required>
+                        <br>
+                        <label for="summary">Edit Summary</label> <br>
+                        <textarea id="summary" name="summary" innerText=${postSummaries[index]} required> </textarea>
+                        <br>
+                        <button id="saveButton">
+                            Save
+                        </button>
+                        <button id="cancelButton">
+                            Cancel
+                        </button>`;
 
-            blogPosts[0].innerHTML = '';
-            loadFromLocalStorage();
-            window.location.reload();
+                
+
+            cancelButton.addEventListener('click', ()=>{
+                userDialogField.open = false;
+                userDialogField.innerHTML = '';
+
+                blogPosts[0].innerHTML = '';
+                loadFromLocalStorage();
+                window.location.reload();
+            });
+            saveButton.addEventListener('click', ()=>{
+                let postTitleEle = document.getElementById('postTitle');
+                let dateEle = document.getElementById('Date');
+                let summaryEle = document.getElementById('summary');
+        
+                const postTitles = JSON.parse(localStorage.getItem('Post Titles'));
+                const postDates = JSON.parse(localStorage.getItem('Post Dates'));
+                const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
+    
+                postTitles[index] = postTitleEle.value;
+                postDates[index] = dateEle.value;
+                postSummaries[index] = summaryEle.value;
+
+                localStorage.setItem('Post Titles', JSON.stringify(postTitles));
+                localStorage.setItem('Post Dates', JSON.stringify(postDates));
+                localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
+            
+                userDialogField.open = false;
+                userDialogField.innerHTML = '';
+
+                blogPosts[0].innerHTML = '';
+                loadFromLocalStorage();
+                window.location.reload();
+            });
+
 
         });
         
     } 
-
 
 
   let addButtons = document.getElementsByClassName('addButton');
@@ -141,7 +179,7 @@
 
         document.getElementsByTagName('output')[0].innerHTML = '';
         loadFromLocalStorage();
-
+        window.location.reload();
     });
 
 
