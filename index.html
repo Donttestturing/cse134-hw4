@@ -153,8 +153,8 @@
             #site-links {
                 display: flex;
                 justify-content: space-evenly; 
-                gap: 10vw;
-                height: 2vh;
+                gap: 8vw;
+                height: 10px;
             }
 
             #likes  {
@@ -218,7 +218,11 @@
                 visibility: visible;
 
             }
-
+            #lastUpdated {
+                font-size: x-small;
+                background-color: var(--color-ternary);
+                padding-bottom: 0px;
+            }
 
 
             img, 
@@ -235,10 +239,6 @@
                     color: var(--color-dark-trim);
          
                 }
-                 #site-links:first-child {
-                    visibility: visible;
-                }
-
                 #site-links > * + * {
                     visibility: hidden;
                 }
@@ -262,7 +262,7 @@
                      visibility: visible;
                }
                 #site-links > * + * {
-                    visibility: hidden;
+                    visibility: hidden; 
 
                 }
              }
@@ -327,7 +327,7 @@
                 <figcaption> Brendan Devlin's personal logo </figcaption>
             </figure>
             <nav id="site-links">
-                <img src="/content/images/myHamburger.svg" alt="a hamburger menu icon, to see site navigation when the window is smaller, like on a mobile phone or tablet." width="65px" height="65px" />
+                <img src="/content/images/myHamburger.svg" id="hamburger" alt="a hamburger menu icon, to see site navigation when the window is smaller, like on a mobile phone or tablet." width="65px" height="65px" />
                 <a href="/personal_demos/index.html" alt="link to personal demos page of Brendan's website"> Personal Demos </a>
                 <a href="https://www.linkedin.com/in/brendan-devlin-7846a7252/" alt="link to Brendan's LinkedIn"> My LinkedIn </a>
                 <a href="https://github.com/Donttestturing" alt="link to Brendan's Github"> My Github </a>
@@ -522,23 +522,14 @@
                     Chowtime!
                 </button>
             </form>
-
-
-            <template>
-                <textarea>
-                    Personal message from Brendan will be here with full JS implementation
-                </textarea>
-            </template>
-
-            <br>
-            <!-- Use of template below, for future implementation with JS, want live reload of last updated time based on pushes to the repo -->
-            <template>
-                <p> Site last updated on: <time datetime="19:31"> 7:31 PM </time> </p>
-            </template>
             
         </footer>
-
+        <section id="lastUpdated">
+            <!-- last updated time for website -->
+            <output>
+            </output>
+        </section>
+        <script src="lastUpdateFct.js"> </script>
     </body>
-
 
 </html>
