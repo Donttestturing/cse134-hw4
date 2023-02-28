@@ -100,14 +100,20 @@
 
             let userDialogField = document.getElementById('userDialogField');
             userDialogField.open = true;
+
+            console.log(postTitles[index]);
+            console.log(postDates[index]);
+            console.log(postSummaries[index]);
+
+
             userDialogField.innerHTML = ` <label for="postTitle">Edit Title:</label>
-                        <input type="text" id="postTitle" name="postTitle" value=${postTitles[index]} required>
+                        <input type="text" id="postTitle" name="postTitle" value=${postTitles[index].replace(" ", "")} required>
         
                         <label for="Date">Edit Date:</label>
                         <input type="date" id="Date" name="Date" value=${postDates[index]} required>
                         <br>
                         <label for="summary">Edit Summary:</label> <br>
-                        <textarea id="summary" name="summary" innerText=${postSummaries[index]} required> </textarea>
+                        <textarea id="summary" name="summary" required> ${postSummaries[index]} </textarea>
                         <br>
                         <button id="saveButton">
                             Save

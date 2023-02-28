@@ -107,7 +107,7 @@ for (let index = 0; index < editButtons.length; index++) {
                     <input type="date" id="Date" name="Date" value=${postDates[index]} required>
                     <br>
                     <label for="summary">Edit Summary:</label> <br>
-                    <textarea id="summary" name="summary" innerText=${postSummaries[index]} required> </textarea>
+                    <textarea id="summary" name="summary" required> ${postSummaries[index]}  </textarea>
                     <br>
                     <button id="saveButton">
                         Save
