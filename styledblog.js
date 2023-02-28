@@ -1,3 +1,4 @@
+ //initialization function, attempts to get from local storage, if empty, add prepopulated blog posts to local storage and then call loadfromlocalstorage
 function init() {
 
     let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
@@ -20,6 +21,7 @@ function init() {
 }
 init();
 
+//helper function to load from local storage and render entries to the screen
 function loadFromLocalStorage(){
 
     let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
@@ -34,18 +36,19 @@ function loadFromLocalStorage(){
     }
 
 }  
-
+//using dom to access elements
 let blogPosts = document.getElementsByTagName('output');
 let deleteButtons = blogPosts[0].getElementsByClassName('deleteButton');
 //items' delete buttons
 for (let index = 0; index < deleteButtons.length; index++) {
+    //clicking delete for each entry brings up user dialog field related to that specific entry by index, now delete buttons are trash icon images
     deleteButtons[index].innerHTML = '<img src="content/images/trashIcon.svg" alt="Trash icon representing the delete button"> '
     deleteButtons[index].addEventListener('click', () =>{
         let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
         let postDates = JSON.parse(localStorage.getItem('Post Dates'));
         let postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
-
+        //confirm delete field
         let userDialogField = document.getElementById('userDialogField');
         userDialogField.open = true;
         userDialogField.innerHTML = ` <p> <b> Do you want to delete this entry? </b> </p> <br> 
@@ -56,16 +59,18 @@ for (let index = 0; index < deleteButtons.length; index++) {
                                         Cancel
                                     </button>`;
 
-        
+        //cancel sub-button for deleting, just closes the field and does nothing to localstorage
         cancelButton.addEventListener('click', ()=>{
             userDialogField.open = false;
             userDialogField.innerHTML = '';
 
             blogPosts[0].innerHTML = '';
             loadFromLocalStorage();
+            //reloading window to rerender changes to localstorage, MPA basically
             window.location.reload();
         });
 
+        //confirm delete sub-button, removes that entry from local storage
         let delConfirmButton = document.getElementById('delConfirmButton');
         delConfirmButton.addEventListener('click', ()=>{
             postTitles.splice(index, 1);
@@ -76,14 +81,14 @@ for (let index = 0; index < deleteButtons.length; index++) {
             localStorage.setItem('Post Dates', JSON.stringify(postDates));
             localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
 
+            //closing field
+            userDialogField.open = false;
+            userDialogField.innerHTML = '';
+
             blogPosts[0].innerHTML = '';
             loadFromLocalStorage();
             window.location.reload();
         });
-
-
-        
-
       
     });
     
@@ -91,15 +96,18 @@ for (let index = 0; index < deleteButtons.length; index++) {
 //items' edit buttons
 let editButtons = blogPosts[0].getElementsByClassName('editButton');
 for (let index = 0; index < editButtons.length; index++) {
+    //clicking edit for each entry brings up user dialog field related to that specific entry by index, now instead of edit button it is a pencil icon.
     editButtons[index].innerHTML = '<img src="content/images/pencilIcon.svg" alt="Pencil icon representing the edit button"> '
     editButtons[index].addEventListener('click', () => {
         let postTitles = JSON.parse(localStorage.getItem('Post Titles'));
         let postDates = JSON.parse(localStorage.getItem('Post Dates'));
         let postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
-
+        //getting user field and making it visible
         let userDialogField = document.getElementById('userDialogField');
         userDialogField.open = true;
+
+        //giving entry fields with prepopulated values
         userDialogField.innerHTML = ` <label for="postTitle">Edit Title:</label>
                     <input type="text" id="postTitle" name="postTitle" value=${postTitles[index]} required>
     
@@ -116,8 +124,7 @@ for (let index = 0; index < editButtons.length; index++) {
                         Cancel
                     </button>`;
 
-            
-
+        //cancel sub-button in the user dialog field for edit
         cancelButton.addEventListener('click', ()=>{
             userDialogField.open = false;
             userDialogField.innerHTML = '';
@@ -126,6 +133,8 @@ for (let index = 0; index < editButtons.length; index++) {
             loadFromLocalStorage();
             window.location.reload();
         });
+
+        //save sub-button in the user dialog field, saving edits for that user given entry to local storage in the same index
         saveButton.addEventListener('click', ()=>{
             let postTitleEle = document.getElementById('postTitle');
             let dateEle = document.getElementById('Date');
@@ -135,14 +144,17 @@ for (let index = 0; index < editButtons.length; index++) {
             const postDates = JSON.parse(localStorage.getItem('Post Dates'));
             const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
 
+            //editing and sanitizing user inputs
             postTitles[index] = DOMPurify.sanitize(postTitleEle.value);
             postDates[index] = DOMPurify.sanitize(dateEle.value);
             postSummaries[index] = DOMPurify.sanitize(summaryEle.value);
 
+            //resaving changes to localStorage
             localStorage.setItem('Post Titles', JSON.stringify(postTitles));
             localStorage.setItem('Post Dates', JSON.stringify(postDates));
             localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
         
+            //closing field
             userDialogField.open = false;
             userDialogField.innerHTML = '';
 
@@ -160,62 +172,64 @@ for (let index = 0; index < editButtons.length; index++) {
 let addButtons = document.getElementsByClassName('addButton');
 
 addButtons[0].addEventListener('click', () => {
-let userDialogField = document.getElementById('userDialogField');
-userDialogField.open = true;
-userDialogField.innerHTML = ` <label for="postTitle">Post Title:</label>
-            <input type="text" id="postTitle" name="postTitle" required>
+    //clicking add brings up user dialog field
+    let userDialogField = document.getElementById('userDialogField');
+    userDialogField.open = true;
+    userDialogField.innerHTML = ` <label for="postTitle">Post Title:</label>
+                <input type="text" id="postTitle" name="postTitle" required>
 
-            <label for="Date">Date:</label>
-            <input type="date" id="Date" name="Date" required>
-            <br>
-            <label for="summary">Summary:</label> 
-            <textarea id="summary" name="summary" required> </textarea>
-            <br>
-            <button id="saveButton">
-                Save
-            </button>
-            <button id="cancelButton">
-                Cancel
-            </button>`;
+                <label for="Date">Date:</label>
+                <input type="date" id="Date" name="Date" required>
+                <br>
+                <label for="summary">Summary:</label> 
+                <textarea id="summary" name="summary" required> </textarea>
+                <br>
+                <button id="saveButton">
+                    Save
+                </button>
+                <button id="cancelButton">
+                    Cancel
+                </button>`;
 
-let saveButton = document.getElementById('saveButton');
-let cancelButton = document.getElementById('cancelButton');
+    let saveButton = document.getElementById('saveButton');
+    let cancelButton = document.getElementById('cancelButton');
 
-cancelButton.addEventListener('click', ()=>{
-    userDialogField.open = false;
-    userDialogField.innerHTML = '';
+     //cancel sub-button in the user dialog field, does nothing to local storage
+    cancelButton.addEventListener('click', ()=>{
+        userDialogField.open = false;
+        userDialogField.innerHTML = '';
+    });
+
+    //save sub-button in the user dialog field, appending user given entry to local storage 
+    saveButton.addEventListener('click', ()=>{
+        let postTitleEle = document.getElementById('postTitle');
+        let dateEle = document.getElementById('Date');
+        let summaryEle = document.getElementById('summary');
+
+        const postTitles = JSON.parse(localStorage.getItem('Post Titles'));
+        const postDates = JSON.parse(localStorage.getItem('Post Dates'));
+        const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
+
+        //santitizing user inputs before adding it to local storage
+        postTitles.push(DOMPurify.sanitize(postTitleEle.value));
+        postDates.push(DOMPurify.sanitize(dateEle.value));
+        postSummaries.push(DOMPurify.sanitize(summaryEle.value));
+
+        //setting local storage
+        localStorage.setItem('Post Titles', JSON.stringify(postTitles));
+        localStorage.setItem('Post Dates', JSON.stringify(postDates));
+        localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
+
+        //closing field
+        userDialogField.open = false;
+        userDialogField.innerHTML = '';
+
+        document.getElementsByTagName('output')[0].innerHTML = '';
+        loadFromLocalStorage();
+        window.location.reload();
+    });
+
+
 });
-saveButton.addEventListener('click', ()=>{
-    let postTitleEle = document.getElementById('postTitle');
-    let dateEle = document.getElementById('Date');
-    let summaryEle = document.getElementById('summary');
-
-    const postTitles = JSON.parse(localStorage.getItem('Post Titles'));
-    const postDates = JSON.parse(localStorage.getItem('Post Dates'));
-    const postSummaries = JSON.parse(localStorage.getItem('Post Summaries'));
-
-
-    postTitles.push(DOMPurify.sanitize(postTitleEle.value));
-    postDates.push(DOMPurify.sanitize(dateEle.value));
-    postSummaries.push(DOMPurify.sanitize(summaryEle.value));
-
-    localStorage.setItem('Post Titles', JSON.stringify(postTitles));
-    localStorage.setItem('Post Dates', JSON.stringify(postDates));
-    localStorage.setItem('Post Summaries', JSON.stringify(postSummaries));
-
-    userDialogField.open = false;
-    userDialogField.innerHTML = '';
-
-    document.getElementsByTagName('output')[0].innerHTML = '';
-    loadFromLocalStorage();
-    window.location.reload();
-});
-
-
-
-
-});
-
-
 
 
