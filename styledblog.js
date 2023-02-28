@@ -109,7 +109,7 @@ for (let index = 0; index < editButtons.length; index++) {
 
         //giving entry fields with prepopulated values
         userDialogField.innerHTML = ` <label for="postTitle">Edit Title:</label>
-                    <input type="text" id="postTitle" name="postTitle" value=${postTitles[index]} required>
+                    <input type="text" id="postTitle" name="postTitle" value="${postTitles[index]}" required>
     
                     <label for="Date">Edit Date:</label>
                     <input type="date" id="Date" name="Date" value=${postDates[index]} required>
