@@ -1,7 +1,14 @@
   //get buttons
         let buttons = document.getElementsByTagName('button');
   //built in alert part
-        buttons[0].addEventListener('click', () => {alert('Built-in Alert')} );
+        buttons[0].addEventListener('click', () => {
+            outputs[0].innerHTML = '';
+
+            setTimeout(() => {
+                alert('Built-in Alert')
+            }, 10);
+        
+        } );
 
         let outputs = document.getElementsByTagName('output');
 
