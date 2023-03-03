@@ -23,7 +23,7 @@
                 let confirmation = confirm('Do you confirm this?');
                 let strToReturn = `Confirm Result: ${confirmation}`;
                 outputs[0].innerHTML = strToReturn;
-            }, 0);
+            }, 10);
            
         } );
   //regular prompt button with response code    
@@ -33,7 +33,7 @@
             setTimeout(() => {
                 userValue = prompt('Please enter your name!')
                 outputs[0].innerHTML = taggedTemplateStr(userValue);
-            }, 0);
+            }, 10);
 
         });
   //safer prompt button with response code    
@@ -44,7 +44,7 @@
                 userValue = prompt('Please enter your name!');
                 userValue = DOMPurify.sanitize(userValue);
                 outputs[0].innerHTML = taggedTemplateStr(userValue);
-            }, 0);
+            }, 10);
             
         });
 
